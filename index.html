@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizen Adv. Agency | متجر الطباعة الاحترافي</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="Kaizen Adv. Agency لحلول الطباعة المخصصة والمنتجات الدعائية. تصفح المنتجات واطلب مباشرة عبر واتساب مع مزامنة فورية عبر Supabase.">
+    <meta name="keywords" content="Kaizen Adv. Agency, kaizen, printing, supabase, custom products, business cards, mugs, t-shirts, notebooks">
+    <meta name="author" content="Kaizen Adv. Agency">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kaizen Adv. Agency | متجر الطباعة الاحترافي">
+    <meta property="og:description" content="واجهة حديثة ثنائية اللغة مع حسابات مستخدمين وإدارة منتجات وطلبات متصلة بـ Supabase.">
+    <meta property="og:image" content="https://images.pexels.com/photos/6786610/pexels-photo-6786610.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200">
+    <meta property="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://ejnafjoxcihjnbirckph.supabase.co">
+    <link rel="preconnect" href="https://images.pexels.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="toast-container" class="toast-container"></div>
+
+    <div id="store-view" class="view active">
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="#hero" class="brand brand-logo-wrap">
+                    <img src="logo.png" alt="Kaizen Adv. Agency" class="brand-logo" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='logo.svg'">
+                    <span class="brand-word">Kaizen Adv. Agency</span>
+                </a>
+
+                <nav class="desktop-nav">
+                    <a href="#hero" data-i18n="nav.home">الرئيسية</a>
+                    <a href="#services" data-i18n="nav.services">خدماتنا</a>
+                    <a href="#products" data-i18n="nav.products">المنتجات</a>
+                    <a href="#portfolio" data-i18n="nav.portfolio">أعمالنا</a>
+                    <a href="#clients" data-i18n="nav.clients">العملاء السابقون</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div id="guest-auth-actions" class="auth-actions">
+                        <button id="open-signup-modal" class="ghost-btn small-btn" type="button">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span data-i18n="auth.signup">إنشاء حساب</span>
+                        </button>
+                        <button id="open-login-modal" class="primary-outline-btn small-btn" type="button">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span data-i18n="auth.login">تسجيل الدخول</span>
+                        </button>
+                    </div>
+
+                    <div id="user-auth-actions" class="auth-actions hidden">
+                        <div class="user-chip">
+                            <i class="fa-solid fa-circle-user"></i>
+                            <span id="user-greeting">-</span>
+                        </div>
+                        <button id="customer-logout" class="ghost-btn small-btn" type="button">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span data-i18n="auth.logout">تسجيل الخروج</span>
+                        </button>
+                    </div>
+
+                    <button id="language-toggle" class="ghost-btn small-btn" type="button">
+                        <i class="fa-solid fa-language"></i>
+                        <span id="language-toggle-label">EN</span>
+                    </button>
+
+                    <button id="mobile-menu-button" class="mobile-menu-button" type="button" aria-label="menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu">
+                <a href="#hero" class="mobile-link" data-i18n="nav.home">الرئيسية</a>
+                <a href="#services" class="mobile-link" data-i18n="nav.services">خدماتنا</a>
+                <a href="#products" class="mobile-link" data-i18n="nav.products">المنتجات</a>
+                <a href="#portfolio" class="mobile-link" data-i18n="nav.portfolio">أعمالنا</a>
+                <a href="#clients" class="mobile-link" data-i18n="nav.clients">العملاء السابقون</a>
+
+                <div id="mobile-guest-auth-actions" class="mobile-actions">
+                    <button id="mobile-open-signup-modal" class="ghost-btn small-btn" type="button">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span data-i18n="auth.signup">إنشاء حساب</span>
+                    </button>
+                    <button id="mobile-open-login-modal" class="primary-btn small-btn" type="button">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span data-i18n="auth.login">تسجيل الدخول</span>
+                    </button>
+                </div>
+
+                <div id="mobile-user-auth-actions" class="mobile-actions hidden">
+                    <div class="user-chip mobile-user-chip">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span id="mobile-user-greeting">-</span>
+                    </div>
+                    <button id="mobile-customer-logout" class="ghost-btn small-btn" type="button">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span data-i18n="auth.logout">تسجيل الخروج</span>
+                    </button>
+                </div>
+
+                <div class="mobile-actions">
+                    <button id="mobile-language-toggle" class="ghost-btn small-btn" type="button">
+                        <i class="fa-solid fa-language"></i>
+                        <span id="mobile-language-toggle-label">EN</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="hero" class="hero-section">
+                <div class="container hero-shell">
+                    <div class="hero-copy">
+                        <span class="hero-chip" data-i18n="hero.badge">هوية مطبوعة بشكل فاخر</span>
+                        <div class="hero-kicker-row">
+                            <span class="hero-kicker-dot"></span>
+                            <span>KAIZEN / BRAND EXPERIENCE</span>
+                        </div>
+                        <h1 class="hero-title">
+                            <span data-i18n="hero.titleLine1">مش مجرد منتج</span>
+                            <span class="highlight" data-i18n="hero.titleLine2">دي بصمة براندك</span>
+                        </h1>
+                        <p class="hero-description" data-i18n="hero.description">اختار من مجموعة متنوعة من المنتجات الدعائية والهدايا المخصصة، واضف لمستك الخاصة علشان كل منتج يوصل رسالة براندك ويخليه ديما في ذهن عملائك.</p>
+                        <div class="hero-buttons">
+                            <a href="#products" class="primary-btn large-btn">
+                                <span data-i18n="hero.ctaPrimary">تصفح المنتجات</span>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                            <a href="#portfolio" class="secondary-btn large-btn">
+                                <span data-i18n="hero.ctaSecondary">شاهد أعمالنا</span>
+                            </a>
+                        </div>
+                        <div class="hero-points">
+                            <div class="hero-point"><i class="fa-solid fa-bolt"></i><span data-i18n="hero.point1">تحديثات فورية لكل المستخدمين</span></div>
+                            <div class="hero-point"><i class="fa-brands fa-whatsapp"></i><span data-i18n="hero.point2">طلبات مباشرة عبر واتساب</span></div>
+                            <div class="hero-point"><i class="fa-solid fa-user-shield"></i><span data-i18n="hero.point3">حسابات مستخدمين وطلبات محفوظة</span></div>
+                        </div>
+                        <div class="hero-signature">
+                            <span class="hero-signature-line"></span>
+                            <span>Crafted for brands that stand out</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="device-cluster">
+                            <div class="device laptop-device">
+                                <div class="device-topbar"></div>
+                                <div class="device-screen screen-showcase">
+                                    <div class="screen-banner">
+                                        <div class="screen-media">
+                                            <img src="https://images.pexels.com/photos/6786610/pexels-photo-6786610.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=720" alt="Kaizen Adv. Agency showcase" loading="eager" fetchpriority="high" decoding="async">
+                                        </div>
+                                        <div class="screen-copy">
+                                            <span class="screen-label">Kaizen Adv. Agency</span>
+                                            <h3 data-i18n="hero.previewTitle">واجهة راقية لمنتجات الطباعة</h3>
+                                            <p data-i18n="hero.previewText">منتجات دعائية وتجارية بجودة تليق بعلامتك التجارية.</p>
+                                        </div>
+                                    </div>
+                                    <div class="screen-cards">
+                                        <div class="mini-card"><img src="https://images.pexels.com/photos/5706020/pexels-photo-5706020.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=220&w=320" alt="Cards" loading="lazy" decoding="async"></div>
+                                        <div class="mini-card"><img src="https://images.pexels.com/photos/6312175/pexels-photo-6312175.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=220&w=320" alt="Mugs" loading="lazy" decoding="async"></div>
+                                        <div class="mini-card"><img src="https://images.pexels.com/photos/8532611/pexels-photo-8532611.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=220&w=320" alt="T shirts" loading="lazy" decoding="async"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="device tablet-device">
+                                <div class="device-screen screen-showcase compact">
+                                    <div class="screen-banner vertical">
+                                        <div class="screen-media">
+                                            <img src="https://images.pexels.com/photos/6312235/pexels-photo-6312235.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=280&w=360" alt="Tablet preview" loading="lazy" decoding="async">
+                                        </div>
+                                        <div class="screen-copy">
+                                            <span class="screen-label">Kaizen Adv. Agency</span>
+                                            <h3 data-i18n="hero.previewTitleSmall">تجربة ثنائية اللغة</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="device phone-device">
+                                <div class="device-screen screen-showcase compact mobile-preview">
+                                    <div class="screen-banner vertical small">
+                                        <div class="screen-media">
+                                            <img src="https://images.pexels.com/photos/360009/pexels-photo-360009.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=280&w=220" alt="Phone preview" loading="lazy" decoding="async">
+                                        </div>
+                                        <div class="screen-copy">
+                                            <span class="screen-label">Live</span>
+                                            <p data-i18n="hero.previewPhone">مزامنة فورية عبر Supabase</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="feature-strip">
+                <div class="container feature-strip-grid">
+                    <article class="feature-box">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <div>
+                            <h3 data-i18n="feature.oneTitle">تحديث لحظي</h3>
+                            <p data-i18n="feature.oneText">أي تعديل على المنتجات أو الحذف أو الإضافة يظهر فورًا لباقي المستخدمين.</p>
+                        </div>
+                    </article>
+                    <article class="feature-box">
+                        <i class="fa-solid fa-users"></i>
+                        <div>
+                            <h3 data-i18n="feature.twoTitle">حسابات مستخدمين</h3>
+                            <p data-i18n="feature.twoText">كل عميل يمكنه إنشاء حسابه وتسجيل الدخول من أي جهاز.</p>
+                        </div>
+                    </article>
+                    <article class="feature-box">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <div>
+                            <h3 data-i18n="feature.threeTitle">طلبات محفوظة</h3>
+                            <p data-i18n="feature.threeText">طلبات الشراء المسجلة تظهر للأدمن داخل لوحة الإدارة.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="services" class="section-block services-section">
+                <div class="container">
+                    <div class="section-head center-head reveal">
+                        <span class="section-eyebrow" data-i18n="nav.services">خدماتنا</span>
+                        <h2 data-i18n="services.title">خدماتنا المتميزة</h2>
+                        <p data-i18n="services.subtitle">تصفح خدماتنا المميزة المصنفة لتلبي جميع احتياجاتك.</p>
+                    </div>
+                    <div class="services-intro-bar reveal">
+                        <span><i class="fa-solid fa-sparkles"></i><b data-i18n="services.signature">Signature collections</b></span>
+                        <span data-i18n="services.signatureText">اختار القسم وشوف التفاصيل والصور في تجربة واحدة سلسة</span>
+                    </div>
+                    <div id="services-categories-grid" class="services-categories-grid reveal"></div>
+                </div>
+            </section>
+
+            <section id="products" class="section-block products-section">
+                <div class="container">
+                    <div class="section-head split-head reveal">
+                        <div>
+                            <span class="section-eyebrow" data-i18n="products.eyebrow">المنتجات</span>
+                            <h2 data-i18n="products.title">منتجات قابلة للطباعة</h2>
+                            <p data-i18n="products.subtitle">جميع المنتجات هنا تُدار من قاعدة البيانات وتظهر تحديثاتها مباشرة لكل الزوار.</p>
+                        </div>
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input id="product-search" type="text" data-i18n-placeholder="products.searchPlaceholder" placeholder="ابحث باسم المنتج...">
+                            <button id="clear-search" class="clear-search hidden" type="button" aria-label="clear search">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="category-row-wrap">
+                        <button id="category-scroll-prev" class="circle-scroll-btn" type="button" aria-label="scroll prev"><i class="fa-solid fa-chevron-right"></i></button>
+                        <div id="category-pills" class="category-pills"></div>
+                        <button id="category-scroll-next" class="circle-scroll-btn" type="button" aria-label="scroll next"><i class="fa-solid fa-chevron-left"></i></button>
+                    </div>
+
+                    <div id="products-grid" class="products-grid"></div>
+
+                    <div id="products-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-box-open"></i></div>
+                        <h3 id="products-empty-title" data-i18n="products.emptyTitle">لا توجد منتجات متاحة.</h3>
+                        <p id="products-empty-text" data-i18n="products.emptyText">يمكنك إضافة منتجات من لوحة الإدارة لتظهر هنا.</p>
+                        <button id="reset-filters" class="secondary-btn small-btn" type="button">
+                            <span data-i18n="products.resetFilters">إعادة ضبط الفلاتر</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="portfolio" class="section-block portfolio-section">
+                <div class="container">
+                    <div class="section-head center-head reveal">
+                        <span class="section-eyebrow" data-i18n="portfolio.eyebrow">أعمالنا السابقة</span>
+                        <h2 data-i18n="portfolio.title">نماذج من تنفيذنا</h2>
+                        <p data-i18n="portfolio.subtitle">صور من أعمالنا السابقة مصنفة حسب نوع المنتج.</p>
+                    </div>
+                    <div class="portfolio-filters-wrap">
+                        <div id="portfolio-category-pills" class="category-pills portfolio-pills"></div>
+                    </div>
+                    <div id="portfolio-grid" class="portfolio-grid"></div>
+                    <div id="portfolio-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-images"></i></div>
+                        <h3 data-i18n="portfolio.emptyTitle">لا توجد أعمال مضافة حاليًا.</h3>
+                        <p data-i18n="portfolio.emptyText">يمكنك إضافة أعمال جديدة من لوحة الإدارة.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="clients" class="section-block clients-section">
+                <div class="container">
+                    <div class="section-head center-head reveal">
+                        <span class="section-eyebrow" data-i18n="clients.eyebrow">العملاء السابقون</span>
+                        <h2 data-i18n="clients.title">براندات تعاملنا معها</h2>
+                        <p data-i18n="clients.subtitle">مجموعة من العلامات التجارية التي تشرفنا بالعمل معها سابقًا.</p>
+                    </div>
+                    <div id="clients-grid" class="clients-grid reveal"></div>
+                    <div id="clients-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-image"></i></div>
+                        <h3 data-i18n="clients.emptyTitle">لا توجد شعارات مضافة حاليًا.</h3>
+                        <p data-i18n="clients.emptyText">يمكنك إضافة شعارات العملاء من لوحة الإدارة.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container footer-grid">
+                <div>
+                    <div class="brand footer-brand brand-logo-wrap">
+                        <img src="logo.png" alt="Kaizen Adv. Agency" class="brand-logo footer-brand-logo" onerror="this.onerror=null;this.src='logo.svg'">
+                        <span class="brand-word footer-brand-word">Kaizen Adv. Agency</span>
+                    </div>
+                    <p class="footer-lead" data-i18n="footer.about">حلول طباعة وهوية بصرية مخصصة بلمسة عصرية، مناسبة للشركات والمتاجر والفعاليات.</p>
+                </div>
+                <div>
+                    <h4 data-i18n="footer.quickLinks">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero" data-i18n="nav.home">الرئيسية</a></li>
+                        <li><a href="#services" data-i18n="nav.services">خدماتنا</a></li>
+                        <li><a href="#products" data-i18n="nav.products">المنتجات</a></li>
+                        <li><a href="#portfolio" data-i18n="nav.portfolio">أعمالنا</a></li>
+                        <li><a href="#clients" data-i18n="nav.clients">العملاء السابقون</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer.contact">تواصل معنا</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-brands fa-whatsapp"></i> +20 10 22977499</li>
+                        <li><i class="fa-solid fa-envelope"></i> mohamed.hamed@kaizen-egypt.com</li>
+                        <li><i class="fa-solid fa-location-dot"></i> <span data-i18n="footer.location">القاهرة، مصر</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer.owner">الإدارة</h4>
+                    <button id="footer-admin-login" class="primary-outline-btn small-btn" type="button">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span data-i18n="footer.adminEntry">دخول لوحة الإدارة</span>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container footer-bottom-inner">
+                    <p data-i18n="footer.copyright">© 2026 Kaizen Adv. Agency. جميع الحقوق محفوظة.</p>
+                    <p data-i18n="footer.note">واجهة متصلة بالسحابة مع تحديثات مباشرة وحسابات مستخدمين.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="admin-view" class="view">
+        <header class="admin-header">
+            <div class="container admin-header-inner">
+                <div class="brand admin-brand brand-logo-wrap">
+                    <img src="logo.png" alt="Kaizen Adv. Agency" class="brand-logo admin-brand-logo" onerror="this.onerror=null;this.src='logo.svg'">
+                    <span class="brand-word admin-brand-word">Kaizen Adv. Agency</span>
+                    <span class="admin-mini-badge" data-i18n="admin.badge">أدمن</span>
+                </div>
+                <div class="admin-header-actions">
+                    <button id="admin-language-toggle" class="ghost-btn small-btn light-ghost" type="button">
+                        <i class="fa-solid fa-language"></i>
+                        <span id="admin-language-toggle-label">EN</span>
+                    </button>
+                    <button id="back-to-store" class="ghost-btn small-btn light-ghost" type="button">
+                        <i class="fa-solid fa-store"></i>
+                        <span data-i18n="admin.backToStore">العودة للمتجر</span>
+                    </button>
+                    <button id="admin-logout" class="danger-btn small-btn" type="button">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span data-i18n="admin.logout">تسجيل الخروج</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container admin-layout">
+            <aside class="admin-sidebar">
+                <div class="admin-profile-card">
+                    <div class="admin-avatar"><i class="fa-solid fa-user-gear"></i></div>
+                    <div>
+                        <h3 data-i18n="admin.ownerTitle">مالك المتجر</h3>
+                        <p data-i18n="admin.ownerSubtitle">جلسة إدارة نشطة</p>
+                    </div>
+                </div>
+                <nav class="admin-nav">
+                    <button class="admin-nav-btn active" data-tab="products" type="button"><i class="fa-solid fa-cubes"></i><span data-i18n="admin.productsTab">إدارة المنتجات</span></button>
+                    <button class="admin-nav-btn" data-tab="categories" type="button"><i class="fa-solid fa-tags"></i><span data-i18n="admin.categoriesTab">إدارة الأقسام</span></button>
+                    <button class="admin-nav-btn" data-tab="services" type="button"><i class="fa-solid fa-bell-concierge"></i><span data-i18n="admin.servicesTab">إدارة الخدمات</span></button>
+                    <button class="admin-nav-btn" data-tab="portfolio" type="button"><i class="fa-solid fa-images"></i><span data-i18n="admin.portfolioTab">إدارة الأعمال</span></button>
+                    <button class="admin-nav-btn" data-tab="clients" type="button"><i class="fa-solid fa-building"></i><span data-i18n="admin.clientsTab">العملاء السابقون</span></button>
+                    <button class="admin-nav-btn" data-tab="users" type="button"><i class="fa-solid fa-users"></i><span data-i18n="admin.usersTab">حسابات المستخدمين</span></button>
+                    <button class="admin-nav-btn" data-tab="orders" type="button"><i class="fa-solid fa-bag-shopping"></i><span data-i18n="admin.ordersTab">طلبات الشراء</span></button>
+                </nav>
+            </aside>
+
+            <main class="admin-content">
+                <section id="admin-tab-products" class="admin-tab active">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.productsTitle">إدارة المنتجات</h2>
+                            <p data-i18n="admin.productsSubtitle">أضف أو عدّل أو احذف المنتجات المتزامنة مع كل المستخدمين.</p>
+                        </div>
+                        <button id="open-add-product" class="primary-btn small-btn" type="button" onclick="window.openProductAdminModal && window.openProductAdminModal()">
+                            <i class="fa-solid fa-plus"></i>
+                            <span data-i18n="admin.addProduct">إضافة منتج</span>
+                        </button>
+                    </div>
+
+                    <div class="admin-filters">
+                        <div class="search-box admin-search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input id="admin-product-search" type="text" data-i18n-placeholder="admin.searchProductsPlaceholder" placeholder="ابحث عن منتج...">
+                        </div>
+                        <select id="admin-category-filter" class="admin-select"></select>
+                    </div>
+
+                    <div class="table-card">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="admin.table.image">الصورة</th>
+                                    <th data-i18n="admin.table.name">الاسم</th>
+                                    <th data-i18n="admin.table.category">القسم</th>
+                                    <th data-i18n="admin.table.methods">طرق الطباعة</th>
+                                    <th data-i18n="admin.table.actions">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-body"></tbody>
+                        </table>
+                    </div>
+                    <div id="admin-products-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-folder-open"></i></div>
+                        <h3 data-i18n="admin.emptyProductsTitle">لا توجد منتجات.</h3>
+                        <p data-i18n="admin.emptyProductsText">ابدأ بإضافة أول منتج ليظهر مباشرة في المتجر.</p>
+                    </div>
+                </section>
+
+                <section id="admin-tab-categories" class="admin-tab">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.categoriesTitle">إدارة الأقسام</h2>
+                            <p data-i18n="admin.categoriesSubtitle">أضف أقسامًا عربية وإنجليزية لتظهر في الفلاتر والمنتجات.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid-two">
+                        <form id="category-form" class="form-card">
+                            <h3 data-i18n="admin.addCategory">إضافة قسم</h3>
+                            <div class="form-group">
+                                <label for="category-name-ar" data-i18n="forms.categoryNameAr">اسم القسم بالعربية</label>
+                                <input id="category-name-ar" type="text" dir="auto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category-name-en" data-i18n="forms.categoryNameEn">اسم القسم بالإنجليزية</label>
+                                <input id="category-name-en" type="text" dir="auto" required>
+                            </div>
+                            <button class="primary-btn small-btn full-btn" type="submit">
+                                <i class="fa-solid fa-plus"></i>
+                                <span data-i18n="admin.saveCategory">حفظ القسم</span>
+                            </button>
+                        </form>
+
+                        <div class="form-card">
+                            <h3 data-i18n="admin.categoryList">قائمة الأقسام</h3>
+                            <div class="table-card compact-table-card">
+                                <table class="admin-table compact">
+                                    <thead>
+                                        <tr>
+                                            <th data-i18n="admin.table.category">القسم</th>
+                                            <th data-i18n="admin.table.actions">الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-categories-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="admin-tab-services" class="admin-tab">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.servicesTitle">إدارة الخدمات</h2>
+                            <p data-i18n="admin.servicesSubtitle">أضف صور الخدمات وحدد القسم المرتبط بها (هدايا، مطبوعات، ستندات).</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-subsection-head">
+                        <h3 data-i18n="admin.serviceCoversTitle">أغلفة الأقسام</h3>
+                        <p data-i18n="admin.serviceCoversSubtitle">هذه هي الصورة الرئيسية التي تظهر للزائر لكل قسم من الأقسام الثلاثة.</p>
+                    </div>
+                    <div id="admin-service-covers-grid" class="admin-covers-grid"></div>
+
+                    <div class="admin-section-head admin-subsection-head-spaced">
+                        <div>
+                            <h3 data-i18n="admin.serviceItemsTitle">عناصر الأقسام</h3>
+                            <p data-i18n="admin.serviceItemsSubtitle">أضف صورة واسم لكل عنصر داخل القسم، وستظهر عند فتح القسم.</p>
+                        </div>
+                        <button id="open-add-service" class="primary-btn small-btn" type="button" onclick="window.openServiceAdminModal && window.openServiceAdminModal()">
+                            <i class="fa-solid fa-plus"></i>
+                            <span data-i18n="admin.addService">إضافة خدمة</span>
+                        </button>
+                    </div>
+                    <div id="admin-services-grid" class="admin-portfolio-grid"></div>
+                    <div id="admin-services-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-image"></i></div>
+                        <h3 data-i18n="admin.emptyServicesTitle">لا توجد خدمات مضافة.</h3>
+                        <p data-i18n="admin.emptyServicesText">أضف أول خدمة لتظهر في قسم الخدمات.</p>
+                    </div>
+                </section>
+
+
+                <section id="admin-tab-portfolio" class="admin-tab">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.portfolioTitle">إدارة الأعمال السابقة</h2>
+                            <p data-i18n="admin.portfolioSimpleSubtitle">أضف صورة العمل وحدد القسم المرتبط بها.</p>
+                        </div>
+                        <button id="open-add-portfolio" class="primary-btn small-btn" type="button" onclick="window.openPortfolioAdminModal && window.openPortfolioAdminModal()">
+                            <i class="fa-solid fa-plus"></i>
+                            <span data-i18n="admin.addPortfolio">إضافة عمل</span>
+                        </button>
+                    </div>
+                    <div id="admin-portfolio-grid" class="admin-portfolio-grid"></div>
+                    <div id="admin-portfolio-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-image"></i></div>
+                        <h3 data-i18n="admin.emptyPortfolioTitle">لا توجد أعمال مضافة.</h3>
+                        <p data-i18n="admin.emptyPortfolioText">أضف أول عمل ليظهر ضمن قسم أعمالنا السابقة.</p>
+                    </div>
+                </section>
+
+                <section id="admin-tab-clients" class="admin-tab">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.clientsTitle">إدارة العملاء السابقون</h2>
+                            <p data-i18n="admin.clientsSubtitle">أضف شعارات أو صور البراندات التي تعاملتم معها سابقًا.</p>
+                        </div>
+                        <button id="open-add-client" class="primary-btn small-btn" type="button" onclick="window.openClientLogoModal && window.openClientLogoModal()">
+                            <i class="fa-solid fa-plus"></i>
+                            <span data-i18n="admin.addClient">إضافة عميل</span>
+                        </button>
+                    </div>
+                    <div id="admin-clients-grid" class="admin-portfolio-grid"></div>
+                    <div id="admin-clients-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-image"></i></div>
+                        <h3 data-i18n="admin.emptyClientsTitle">لا توجد شعارات عملاء.</h3>
+                        <p data-i18n="admin.emptyClientsText">أضف أول شعار عميل ليظهر في قسم العملاء السابقون.</p>
+                    </div>
+                </section>
+
+                <section id="admin-tab-users" class="admin-tab">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.usersTitle">حسابات المستخدمين</h2>
+                            <p data-i18n="admin.usersSubtitle">الحسابات المسجلة من خلال الموقع تظهر هنا من أي جهاز.</p>
+                        </div>
+                    </div>
+                    <div class="security-note" data-i18n="admin.usersSecurityNote">كل الحسابات المسجلة من الموقع تظهر هنا مع بيانات الدخول الخاصة بها كما طلبت.</div>
+                    <div class="table-card">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="admin.usersTable.name">الاسم</th>
+                                    <th data-i18n="admin.usersTable.phone">رقم الهاتف</th>
+                                    <th data-i18n="admin.usersTable.password">كلمة المرور</th>
+                                    <th data-i18n="admin.usersTable.userId">معرف المستخدم</th>
+                                    <th data-i18n="admin.usersTable.createdAt">تاريخ الإنشاء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-body"></tbody>
+                        </table>
+                    </div>
+                    <div id="admin-users-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-user"></i></div>
+                        <h3 data-i18n="admin.emptyUsersTitle">لا توجد حسابات مستخدمين حتى الآن.</h3>
+                        <p data-i18n="admin.emptyUsersText">عندما يسجل المستخدمون من الموقع ستظهر بياناتهم هنا.</p>
+                    </div>
+                </section>
+
+                <section id="admin-tab-orders" class="admin-tab">
+                    <div class="admin-section-head">
+                        <div>
+                            <h2 data-i18n="admin.ordersTitle">طلبات الشراء والاقتباس</h2>
+                            <p data-i18n="admin.ordersSubtitle">كل طلب مسجل من المستخدمين يظهر هنا بشكل مباشر.</p>
+                        </div>
+                    </div>
+                    <div class="table-card">
+                        <table class="admin-table orders-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="admin.ordersTable.customer">العميل</th>
+                                    <th data-i18n="admin.ordersTable.phone">الهاتف</th>
+                                    <th data-i18n="admin.ordersTable.product">المنتج</th>
+                                    <th data-i18n="admin.ordersTable.type">النوع</th>
+                                    <th data-i18n="admin.ordersTable.quantity">الكمية</th>
+                                    <th data-i18n="admin.ordersTable.printing">الطباعة</th>
+                                    <th data-i18n="admin.ordersTable.date">التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-body"></tbody>
+                        </table>
+                    </div>
+                    <div id="admin-orders-empty" class="empty-state hidden">
+                        <div class="empty-icon"><i class="fa-regular fa-clipboard"></i></div>
+                        <h3 data-i18n="admin.emptyOrdersTitle">لا توجد طلبات حالية.</h3>
+                        <p data-i18n="admin.emptyOrdersText">عند إرسال أي طلب من المستخدمين سيظهر هنا فورًا.</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="details-modal" class="modal hidden">
+        <div class="modal-card modal-large">
+            <button class="modal-close" data-close="details-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="details-layout">
+                <div class="details-media">
+                    <img id="details-image" src="" alt="Product image">
+                    <div class="details-project-box">
+                        <span class="project-label" data-i18n="details.projectLabel">مثال من تنفيذ سابق</span>
+                        <div class="details-project-inner">
+                            <img id="details-project-image" src="" alt="Portfolio example">
+                            <p id="details-project-description"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-info">
+                    <span id="details-category" class="details-category"></span>
+                    <h2 id="details-title"></h2>
+                    <p id="details-description" class="details-description"></p>
+                    <div class="details-methods-block">
+                        <h3 data-i18n="details.methodsTitle">طرق الطباعة المتاحة</h3>
+                        <div id="details-methods" class="details-methods"></div>
+                    </div>
+                    <div class="details-actions">
+                        <button id="details-request-quote" class="primary-btn" type="button">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span data-i18n="details.requestQuote">اطلب عرض سعر</span>
+                        </button>
+                        <button id="details-order-now" class="secondary-btn" type="button">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <span data-i18n="details.orderNow">اطلب الآن</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quote-modal" class="modal hidden">
+        <div class="modal-card modal-medium">
+            <button class="modal-close" data-close="quote-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-head">
+                <h2 id="quote-modal-title" data-i18n="quote.title">طلب عرض سعر</h2>
+                <p id="quote-modal-subtitle" data-i18n="quote.subtitle">املأ البيانات التالية وسنفتح لك رسالة واتساب جاهزة.</p>
+            </div>
+            <form id="quote-form" class="modal-form">
+                <div class="form-group">
+                    <label for="quote-product" data-i18n="forms.productName">اسم المنتج</label>
+                    <input id="quote-product" type="text" readonly>
+                </div>
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label for="quote-customer-name" data-i18n="forms.customerName">اسم العميل</label>
+                        <input id="quote-customer-name" type="text" dir="auto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quote-phone" data-i18n="forms.phone">رقم الهاتف</label>
+                        <input id="quote-phone" type="tel" dir="auto" required>
+                    </div>
+                </div>
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label for="quote-email" data-i18n="forms.email">البريد الإلكتروني</label>
+                        <input id="quote-email" type="email" dir="auto">
+                    </div>
+                    <div class="form-group">
+                        <label for="quote-quantity" data-i18n="forms.quantity">الكمية المطلوبة</label>
+                        <input id="quote-quantity" type="number" min="1" value="100" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="quote-printing-type" data-i18n="forms.printingType">نوع الطباعة (اختياري)</label>
+                    <select id="quote-printing-type"></select>
+                </div>
+                <div class="form-group">
+                    <label for="quote-notes" data-i18n="forms.notes">ملاحظات (اختياري)</label>
+                    <textarea id="quote-notes" rows="4" dir="auto"></textarea>
+                </div>
+                <button class="primary-btn full-btn" type="submit">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span id="quote-submit-label" data-i18n="quote.submit">إرسال عبر واتساب</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal hidden">
+        <div class="modal-card modal-small centered-card">
+            <button class="modal-close" data-close="signup-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="lock-badge"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="modal-head centered-head">
+                <h2 data-i18n="auth.signupTitle">إنشاء حساب جديد</h2>
+                <p data-i18n="auth.signupSubtitle">سجّل اسمك ورقم هاتفك وكلمة المرور لحفظ طلباتك ومزامنتها بين الأجهزة.</p>
+            </div>
+            <form id="signup-form" class="modal-form">
+                <div class="form-group">
+                    <label for="signup-name" data-i18n="forms.customerName">الاسم</label>
+                    <input id="signup-name" type="text" dir="auto" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone" data-i18n="forms.phone">رقم الهاتف</label>
+                    <input id="signup-phone" type="tel" dir="ltr" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password" data-i18n="login.password">كلمة المرور</label>
+                    <div class="password-box">
+                        <input id="signup-password" type="password" required>
+                        <button id="toggle-signup-password" type="button" class="password-toggle"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+                <button class="primary-btn full-btn" type="submit">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span data-i18n="auth.signup">إنشاء حساب</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="user-login-modal" class="modal hidden">
+        <div class="modal-card modal-small centered-card">
+            <button class="modal-close" data-close="user-login-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="lock-badge"><i class="fa-solid fa-right-to-bracket"></i></div>
+            <div class="modal-head centered-head">
+                <h2 data-i18n="auth.loginTitle">تسجيل دخول المستخدم</h2>
+                <p data-i18n="auth.loginSubtitle">استخدم رقم الهاتف وكلمة المرور للدخول إلى حسابك من أي جهاز.</p>
+            </div>
+            <form id="user-login-form" class="modal-form">
+                <div class="form-group">
+                    <label for="user-login-phone" data-i18n="forms.phone">رقم الهاتف</label>
+                    <input id="user-login-phone" type="tel" dir="ltr" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-login-password" data-i18n="login.password">كلمة المرور</label>
+                    <div class="password-box">
+                        <input id="user-login-password" type="password" required>
+                        <button id="toggle-user-login-password" type="button" class="password-toggle"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+                <button class="primary-btn full-btn" type="submit">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span data-i18n="auth.login">تسجيل الدخول</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-card modal-small centered-card">
+            <button class="modal-close" data-close="login-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="lock-badge"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="modal-head centered-head">
+                <h2 data-i18n="admin.ownerLoginTitle">دخول لوحة الإدارة</h2>
+                <p data-i18n="admin.ownerLoginSubtitle">أدخل كلمة مرور الأدمن لفتح واجهة التحكم.</p>
+            </div>
+            <form id="login-form" class="modal-form">
+                <div class="form-group">
+                    <label for="admin-password" data-i18n="login.password">كلمة المرور</label>
+                    <div class="password-box">
+                        <input id="admin-password" type="password" required>
+                        <button id="toggle-password" type="button" class="password-toggle"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                    <p id="login-error" class="inline-error hidden" data-i18n="login.error">كلمة المرور غير صحيحة.</p>
+                </div>
+                <button class="primary-btn full-btn" type="submit">
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                    <span data-i18n="login.enter">دخول</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-card modal-xlarge">
+            <button class="modal-close" data-close="product-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-head">
+                <h2 id="product-modal-title">إضافة منتج</h2>
+                <p data-i18n="admin.productFormSubtitle">أدخل بيانات المنتج باللغتين ليظهر بشكل احترافي لكل المستخدمين.</p>
+            </div>
+            <form id="product-form" class="modal-form">
+                <input id="product-id" type="hidden">
+                <div class="form-grid two-columns-grid">
+                    <div class="form-column">
+                        <div class="form-group"><label for="product-name-ar" data-i18n="forms.productNameAr">اسم المنتج بالعربية</label><input id="product-name-ar" type="text" dir="auto" required></div>
+                        <div class="form-group"><label for="product-name-en" data-i18n="forms.productNameEn">اسم المنتج بالإنجليزية</label><input id="product-name-en" type="text" dir="auto" required></div>
+                        <div class="form-group"><label for="product-category" data-i18n="forms.category">القسم</label><select id="product-category" required></select></div>
+                        <div class="form-group">
+                            <label for="product-image-file" data-i18n="forms.mainImage">صورة المنتج الرئيسية</label>
+                            <input id="product-image-file" type="file" accept="image/*">
+                            <input id="product-image" type="hidden">
+                            <p class="field-note" data-i18n="forms.fileNote">اختر صورة من جهازك. عند التعديل يمكنك ترك الحقل فارغًا للاحتفاظ بالصورة الحالية.</p>
+                            <img id="product-image-preview" class="upload-preview hidden" alt="Product preview">
+                        </div>
+                        <div class="form-group"><label for="product-short-ar" data-i18n="forms.shortDescAr">وصف مختصر بالعربية</label><textarea id="product-short-ar" rows="3" dir="auto" required></textarea></div>
+                        <div class="form-group"><label for="product-short-en" data-i18n="forms.shortDescEn">وصف مختصر بالإنجليزية</label><textarea id="product-short-en" rows="3" dir="auto" required></textarea></div>
+                    </div>
+                    <div class="form-column">
+                        <div class="form-group"><label for="product-full-ar" data-i18n="forms.fullDescAr">الوصف الكامل بالعربية</label><textarea id="product-full-ar" rows="4" dir="auto" required></textarea></div>
+                        <div class="form-group"><label for="product-full-en" data-i18n="forms.fullDescEn">الوصف الكامل بالإنجليزية</label><textarea id="product-full-en" rows="4" dir="auto" required></textarea></div>
+                        <div class="form-group">
+                            <div class="method-head">
+                                <label data-i18n="forms.methods">طرق الطباعة المتاحة</label>
+                                <button id="add-printing-method-btn" class="ghost-btn small-btn add-method-btn" type="button"><i class="fa-solid fa-plus"></i><span data-i18n="forms.addMethod">إضافة نوع طباعة</span></button>
+                            </div>
+                            <div class="method-adder">
+                                <input id="new-printing-method-ar" type="text" dir="auto" data-i18n-placeholder="forms.newMethodArPlaceholder" placeholder="اسم الطريقة بالعربية">
+                                <input id="new-printing-method-en" type="text" dir="auto" data-i18n-placeholder="forms.newMethodEnPlaceholder" placeholder="Method name in English">
+                            </div>
+                            <div id="printing-method-checkboxes" class="check-grid"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-portfolio-image-file" data-i18n="forms.projectImage">صورة مثال التنفيذ</label>
+                            <input id="product-portfolio-image-file" type="file" accept="image/*">
+                            <input id="product-portfolio-image" type="hidden">
+                            <p class="field-note" data-i18n="forms.fileNote">اختر صورة من جهازك. عند التعديل يمكنك ترك الحقل فارغًا للاحتفاظ بالصورة الحالية.</p>
+                            <img id="product-portfolio-image-preview" class="upload-preview hidden" alt="Project preview">
+                        </div>
+                        <div class="form-group"><label for="product-portfolio-desc-ar" data-i18n="forms.projectDescAr">وصف مثال التنفيذ بالعربية</label><textarea id="product-portfolio-desc-ar" rows="3" dir="auto" required></textarea></div>
+                        <div class="form-group"><label for="product-portfolio-desc-en" data-i18n="forms.projectDescEn">وصف مثال التنفيذ بالإنجليزية</label><textarea id="product-portfolio-desc-en" rows="3" dir="auto" required></textarea></div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="ghost-btn small-btn" data-close="product-modal" type="button"><span data-i18n="common.cancel">إلغاء</span></button>
+                    <button class="primary-btn small-btn" type="submit"><span id="product-modal-submit-label" data-i18n="common.save">حفظ</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="services-gallery-modal" class="modal hidden">
+        <div class="modal-card modal-large service-detail-card">
+            <button class="modal-close" data-close="services-gallery-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="service-detail-top">
+                <div class="service-detail-copy">
+                    <span id="services-gallery-eyebrow" class="service-detail-eyebrow">KAIZEN / SERVICE</span>
+                    <h2 id="services-gallery-title">القسم</h2>
+                    <p id="services-gallery-description"></p>
+                    <div id="services-gallery-tags" class="service-detail-tags"></div>
+                </div>
+                <div class="service-detail-index" aria-hidden="true">
+                    <span id="services-gallery-index">01</span>
+                    <small>COLLECTION</small>
+                </div>
+            </div>
+            <div class="service-detail-divider">
+                <span data-i18n="services.gallerySubtitle">تصفح كل الأعمال المصنفة تحت هذا القسم.</span>
+                <span class="service-detail-rule"></span>
+            </div>
+            <div id="services-gallery-grid" class="services-gallery-grid"></div>
+            <div id="services-gallery-empty" class="empty-state hidden">
+                <div class="empty-icon"><i class="fa-regular fa-images"></i></div>
+                <h3 data-i18n="services.emptyTitle">لا توجد خدمات مضافة حاليًا.</h3>
+                <p data-i18n="services.emptyText">يمكنك إضافة خدمات جديدة من لوحة الإدارة.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="service-modal" class="modal hidden">
+        <div class="modal-card modal-medium">
+            <button class="modal-close" data-close="service-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-head">
+                <h2 id="service-modal-title">إضافة خدمة</h2>
+                <p data-i18n="admin.serviceFormSubtitle">أضف خدمة جديدة وحدد القسم والاسم.</p>
+            </div>
+            <form id="service-form" class="modal-form">
+                <input id="service-id" type="hidden">
+                <div class="form-group">
+                    <label for="service-category" data-i18n="forms.category">القسم</label>
+                    <select id="service-category" required>
+                        <option value="prints">المطبوعات</option>
+                        <option value="gifts">Giveaway</option>
+                        <option value="stands">Exhibition stands</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="service-name" data-i18n="forms.serviceName">اسم الخدمة</label>
+                    <input id="service-name" type="text" dir="auto" required data-i18n-placeholder="forms.serviceNamePlaceholder" placeholder="مثال: كارت شخصي فاخر">
+                </div>
+                <div class="form-group">
+                    <label for="service-image-file" data-i18n="forms.serviceImage">صورة الخدمة</label>
+                    <input id="service-image-file" type="file" accept="image/*">
+                    <input id="service-image" type="hidden">
+                    <p class="field-note" data-i18n="forms.fileNote">اختر صورة من جهازك. عند التعديل يمكنك ترك الحقل فارغًا للاحتفاظ بالصورة الحالية.</p>
+                    <img id="service-image-preview" class="upload-preview hidden" alt="Service preview">
+                </div>
+                <div class="form-actions">
+                    <button class="ghost-btn small-btn" data-close="service-modal" type="button"><span data-i18n="common.cancel">إلغاء</span></button>
+                    <button id="service-save-btn" class="primary-btn small-btn" type="submit"><span id="service-modal-submit-label" data-i18n="common.save">حفظ</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="portfolio-modal" class="modal hidden">
+        <div class="modal-card modal-large">
+            <button class="modal-close" data-close="portfolio-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-head">
+                <h2 id="portfolio-modal-title">إضافة عمل</h2>
+                <p data-i18n="admin.portfolioFormSubtitle">أضف مشروعًا منفذًا ليظهر في معرض الأعمال لكل المستخدمين.</p>
+            </div>
+            <form id="portfolio-form" class="modal-form">
+                <input id="portfolio-id" type="hidden">
+                <input id="portfolio-title-ar" type="hidden">
+                <input id="portfolio-title-en" type="hidden">
+                <input id="portfolio-method-ar" type="hidden">
+                <input id="portfolio-method-en" type="hidden">
+                <input id="portfolio-desc-ar" type="hidden">
+                <input id="portfolio-desc-en" type="hidden">
+                <div class="form-group">
+                    <label for="portfolio-category" data-i18n="forms.category">القسم</label>
+                    <select id="portfolio-category" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="portfolio-image-file" data-i18n="forms.portfolioImage">صورة العمل</label>
+                    <input id="portfolio-image-file" type="file" accept="image/*">
+                    <input id="portfolio-image" type="hidden">
+                    <p class="field-note" data-i18n="forms.fileNote">اختر صورة من جهازك. عند التعديل يمكنك ترك الحقل فارغًا للاحتفاظ بالصورة الحالية.</p>
+                    <img id="portfolio-image-preview" class="upload-preview hidden" alt="Portfolio preview">
+                </div>
+                <div class="form-actions">
+                    <button class="ghost-btn small-btn" data-close="portfolio-modal" type="button"><span data-i18n="common.cancel">إلغاء</span></button>
+                    <button id="portfolio-save-btn" class="primary-btn small-btn" type="submit"><span id="portfolio-modal-submit-label" data-i18n="common.save">حفظ</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="client-logo-modal" class="modal hidden">
+        <div class="modal-card modal-medium">
+            <button class="modal-close" data-close="client-logo-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-head">
+                <h2 id="client-logo-modal-title" data-i18n="clients.modalTitle">إضافة عميل سابق</h2>
+                <p data-i18n="clients.modalSubtitle">أضف صورة الشعار أو صورة البراند فقط.</p>
+            </div>
+            <form id="client-logo-form" class="modal-form">
+                <input id="client-logo-id" type="hidden">
+                <div class="form-group">
+                    <label for="client-logo-image-file" data-i18n="clients.imageLabel">صورة العميل</label>
+                    <input id="client-logo-image-file" type="file" accept="image/*">
+                    <input id="client-logo-image" type="hidden">
+                    <p class="field-note" data-i18n="forms.fileNote">اختر صورة من جهازك. عند التعديل يمكنك ترك الحقل فارغًا للاحتفاظ بالصورة الحالية.</p>
+                    <img id="client-logo-image-preview" class="upload-preview hidden" alt="Client logo preview">
+                </div>
+                <div class="form-actions">
+                    <button class="ghost-btn small-btn" data-close="client-logo-modal" type="button"><span data-i18n="common.cancel">إلغاء</span></button>
+                    <button class="primary-btn small-btn" type="submit"><span id="client-logo-submit-label" data-i18n="common.save">حفظ</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-card modal-small centered-card confirm-card">
+            <div class="confirm-icon"><i class="fa-solid fa-circle-question"></i></div>
+            <h2 id="confirm-title"></h2>
+            <p id="confirm-message"></p>
+            <div class="form-actions full-actions">
+                <button id="confirm-cancel" class="ghost-btn small-btn" type="button"><span data-i18n="common.cancel">إلغاء</span></button>
+                <button id="confirm-ok" class="danger-btn small-btn" type="button"><span data-i18n="common.confirm">تأكيد</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
